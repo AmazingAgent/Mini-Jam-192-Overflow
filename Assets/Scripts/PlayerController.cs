@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     private FollowScript followScript;
     public  bool following = false;
 
+    // Death state
+    public bool dead = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,78 +28,87 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movingUp = false;
-        movingSide = false;
+        if (!dead) {
+            movingUp = false;
+            movingSide = false;
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            movingSide = true;
-            velocity.x -= acceleration * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            movingSide = true;
-            velocity.x += acceleration * Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            movingUp = true;
-            velocity.z += acceleration * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            movingUp = true;
-            velocity.z -= acceleration * Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && following)
-        {
-            following = false;
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpStrength, rb.linearVelocity.z);
-        }
-
-
-
-        
-        if (!movingSide)
-        {
-            if (Mathf.Abs(velocity.x) >= 0.3f) { velocity.x -= acceleration * 1.2f * Time.deltaTime * (velocity.x / Mathf.Abs(velocity.x)); }
-            else { velocity.x = 0f; }
-        }
-        if (!movingUp) {
-            if (Mathf.Abs(velocity.z) >= 0.3f) { velocity.z -= acceleration * 1.2f * Time.deltaTime * (velocity.z / Mathf.Abs(velocity.z)); }
-            else { velocity.z = 0f; }
-        }
-        
-
-        if (movingUp && movingSide)
-        {
-            if (following)
+            if (Input.GetKey(KeyCode.A))
             {
-                velocity.x = Mathf.Clamp(velocity.x, (-maxSpeed + 2f) / 1.4f, (maxSpeed - 2f )/ 1.4f);
-                velocity.z = Mathf.Clamp(velocity.z, (-maxSpeed - 3f) / 1.4f, (maxSpeed - 3f )/ 1.4f);
+                movingSide = true;
+                velocity.x -= acceleration * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                movingSide = true;
+                velocity.x += acceleration * Time.deltaTime;
+            }
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                movingUp = true;
+                velocity.z += acceleration * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                movingUp = true;
+                velocity.z -= acceleration * Time.deltaTime;
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && following)
+            {
+                following = false;
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpStrength, rb.linearVelocity.z);
+            }
+
+
+
+
+            if (!movingSide)
+            {
+                if (Mathf.Abs(velocity.x) >= 0.3f) { velocity.x -= acceleration * 1.2f * Time.deltaTime * (velocity.x / Mathf.Abs(velocity.x)); }
+                else { velocity.x = 0f; }
+            }
+            if (!movingUp)
+            {
+                if (Mathf.Abs(velocity.z) >= 0.3f) { velocity.z -= acceleration * 1.2f * Time.deltaTime * (velocity.z / Mathf.Abs(velocity.z)); }
+                else { velocity.z = 0f; }
+            }
+
+
+            if (movingUp && movingSide)
+            {
+                if (following)
+                {
+                    velocity.x = Mathf.Clamp(velocity.x, (-maxSpeed + 2f) / 1.4f, (maxSpeed - 2f) / 1.4f);
+                    velocity.z = Mathf.Clamp(velocity.z, (-maxSpeed - 3f) / 1.4f, (maxSpeed - 3f) / 1.4f);
+                }
+                else
+                {
+                    velocity.x = Mathf.Clamp(velocity.x, -maxSpeed / 1.4f, maxSpeed / 1.4f);
+                    velocity.z = Mathf.Clamp(velocity.z, -maxSpeed / 1.4f, maxSpeed / 1.4f);
+                }
             }
             else
             {
-                velocity.x = Mathf.Clamp(velocity.x, -maxSpeed / 1.4f, maxSpeed / 1.4f);
-                velocity.z = Mathf.Clamp(velocity.z, -maxSpeed / 1.4f, maxSpeed / 1.4f);
+                if (following)
+                {
+                    velocity.x = Mathf.Clamp(velocity.x, (-maxSpeed) + 2f, (maxSpeed) - 2f);
+                    velocity.z = Mathf.Clamp(velocity.z, (-maxSpeed) - 3f, (maxSpeed) - 3f);
+                }
+                else
+                {
+                    velocity.x = Mathf.Clamp(velocity.x, -maxSpeed, maxSpeed);
+                    velocity.z = Mathf.Clamp(velocity.z, -maxSpeed, maxSpeed);
+                }
             }
+
+            UpdateVelocity(velocity);
         }
+
+        // Player is dead
         else
         {
-            if (following)
-            {
-                velocity.x = Mathf.Clamp(velocity.x, (-maxSpeed) + 2f, (maxSpeed) - 2f);
-                velocity.z = Mathf.Clamp(velocity.z, (-maxSpeed) - 3f, (maxSpeed) - 3f);
-            }
-            else
-            {
-                velocity.x = Mathf.Clamp(velocity.x, -maxSpeed, maxSpeed);
-                velocity.z = Mathf.Clamp(velocity.z, -maxSpeed, maxSpeed);
-            }
-        }
 
-        UpdateVelocity(velocity);
+        }
         
     }
 
@@ -104,5 +116,12 @@ public class PlayerController : MonoBehaviour
     {
         vel.y = rb.linearVelocity.y;
         rb.linearVelocity = vel;
+    }
+
+    public void KillPlayer()
+    {
+        dead = true;
+        rb.linearVelocity = new Vector3(0, jumpStrength, 0);
+        gameObject.GetComponent<SphereCollider>().enabled = false;
     }
 }

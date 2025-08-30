@@ -3,18 +3,31 @@ using UnityEngine;
 public class ScrollingMovement : MonoBehaviour
 {
     [SerializeField] private float ScrollSpeed = 1f;
-    private bool following = false;
+    public bool following = false;
     private GameObject player;
     private Rigidbody rb;
+
+    // platform health
+    [SerializeField] public float health = 8f;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        // randomize starting health
+        health = Random.Range(0.9f, health);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Lower health
+        if (following)
+        {
+            health -= Time.deltaTime;
+        }
+
+        // Makes player jump
         if (Input.GetKeyDown(KeyCode.Space) && following)
         {
             following = false;
@@ -22,7 +35,7 @@ public class ScrollingMovement : MonoBehaviour
         }
 
 
-
+        // Locks platform to player
         if (following) {
             rb.linearVelocity = new Vector3(0, 0, 0);
             transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
@@ -31,7 +44,7 @@ public class ScrollingMovement : MonoBehaviour
             rb.linearVelocity = new Vector3(0, 0, -ScrollSpeed);
         }
 
-
+        // Despawns object
         if (transform.position.z < -12f)
         {
             Destroy(this.gameObject);
@@ -55,6 +68,14 @@ public class ScrollingMovement : MonoBehaviour
 
                 
             }
+        }
+    }
+
+    public void KillPlayer()
+    {
+        if (following)
+        {
+            player.GetComponent<PlayerController>().KillPlayer();
         }
     }
 }
