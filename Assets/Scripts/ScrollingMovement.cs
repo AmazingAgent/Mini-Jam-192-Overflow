@@ -8,13 +8,15 @@ public class ScrollingMovement : MonoBehaviour
     private Rigidbody rb;
 
     // platform health
+    [SerializeField] public bool starterPlatform = false;
     [SerializeField] public float health = 8f;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
 
         // randomize starting health
-        health = Random.Range(0.9f, health);
+        if (!starterPlatform) { health = Random.Range(0.9f, health); }
+        
 
     }
 
@@ -25,6 +27,7 @@ public class ScrollingMovement : MonoBehaviour
         if (following)
         {
             health -= Time.deltaTime;
+            if (health < 0f) { KillPlayer(); }
         }
 
         // Makes player jump
@@ -76,6 +79,7 @@ public class ScrollingMovement : MonoBehaviour
         if (following)
         {
             player.GetComponent<PlayerController>().KillPlayer();
+            Destroy(this.gameObject);
         }
     }
 }

@@ -18,8 +18,13 @@ public class PlayerController : MonoBehaviour
     // Death state
     public bool dead = false;
 
+    // Animation
+    [SerializeField] private GameObject spriteObj;
+    private Animator animator;
+
     void Start()
     {
+        animator = spriteObj.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         followScript = gameObject.GetComponent<FollowScript>();
         acceleration = 1f * acceleration;
@@ -107,9 +112,15 @@ public class PlayerController : MonoBehaviour
         // Player is dead
         else
         {
-
+            if (transform.position.y < -1)
+            {
+                Destroy(this.gameObject);
+            }
         }
-        
+
+        UpdateAnimator();
+
+
     }
 
     void UpdateVelocity(Vector3 vel)
@@ -123,5 +134,38 @@ public class PlayerController : MonoBehaviour
         dead = true;
         rb.linearVelocity = new Vector3(0, jumpStrength, 0);
         gameObject.GetComponent<SphereCollider>().enabled = false;
+    }
+
+
+    private void UpdateAnimator()
+    {
+        if (!dead) // Normal animations
+        {
+            if (velocity.z != 0) // Moving vertically
+            {
+                if (velocity.z > 0) { animator.SetInteger("Direction", 0); } // up
+                else { animator.SetInteger("Direction", 1); } // down
+            }
+            else // Moving horizontally
+            {
+                if (velocity.x != 0)
+                {
+                    if (velocity.x > 0) { animator.SetInteger("Direction", 2); } // right
+                    else { animator.SetInteger("Direction", 3); } // left
+                }
+                else { animator.SetInteger("Direction", 0); }
+            }
+            
+
+            // Update jump logic
+            if (following) { animator.SetBool("Jumping", false); }
+            else { animator.SetBool("Jumping", true); }
+            
+        }
+        else
+        {
+            animator.SetInteger("Direction", -1);
+            animator.SetBool("Dead", true);
+        }
     }
 }

@@ -5384,6 +5384,7 @@ MonoBehaviour:
   jumpStrength: 8
   following: 0
   dead: 0
+  spriteObj: {fileID: 1958653186}
 --- !u!54 &1492913983
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7085,7 +7086,7 @@ Animator:
   m_GameObject: {fileID: 1958653186}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b2f0f887980e2f44c8b6b4ab1810a6d9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
