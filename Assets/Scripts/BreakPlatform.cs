@@ -16,7 +16,7 @@ public class BreakPlatform : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.tag);
-        if (other.gameObject.tag == "platform")
+        if (other.gameObject.tag == "platform" || other.gameObject.tag == "rock")
         {
             gameObject.transform.parent.GetComponent<ScrollingMovement>().KillPlayer();
             Destroy(gameObject);

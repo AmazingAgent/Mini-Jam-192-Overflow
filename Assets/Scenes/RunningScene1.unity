@@ -5323,7 +5323,7 @@ GameObject:
   - component: {fileID: 1492913983}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6661,7 +6661,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 8859964436249204154, guid: 5cc6989e37978734dbc1f4e005756b30, type: 3}
-  spawnrate: 2.5
+  rock: {fileID: 1900513931861623619, guid: 2ed7e7f1e1be5384a8ce8dbe6f3db96c, type: 3}
+  spawnrate: 2
   spawnVar: 0.5
   timer: 0
 --- !u!1 &1845367042
@@ -7697,6 +7698,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815023600905049999, guid: 5cc6989e37978734dbc1f4e005756b30, type: 3}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815023600905049999, guid: 5cc6989e37978734dbc1f4e005756b30, type: 3}
+      propertyPath: starterPlatform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4487762612417964454, guid: 5cc6989e37978734dbc1f4e005756b30, type: 3}
       propertyPath: m_Radius
       value: 0.5
@@ -7748,6 +7757,10 @@ PrefabInstance:
     - target: {fileID: 8859964436249204154, guid: 5cc6989e37978734dbc1f4e005756b30, type: 3}
       propertyPath: m_Name
       value: Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081307321714230765, guid: 5cc6989e37978734dbc1f4e005756b30, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

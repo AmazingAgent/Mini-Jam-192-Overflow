@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScrollingMovement : MonoBehaviour
 {
-    [SerializeField] private float ScrollSpeed = 1f;
+    [SerializeField] private float scrollSpeed = 1f;
     public bool following = false;
     private GameObject player;
     private Rigidbody rb;
@@ -15,7 +15,7 @@ public class ScrollingMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         // randomize starting health
-        if (!starterPlatform) { health = Random.Range(0.9f, health); }
+        if (!starterPlatform) { health = Random.Range(1.9f, health); }
         
 
     }
@@ -44,7 +44,7 @@ public class ScrollingMovement : MonoBehaviour
             transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
         }
         else {
-            rb.linearVelocity = new Vector3(0, 0, -ScrollSpeed);
+            rb.linearVelocity = new Vector3(0, 0, -scrollSpeed);
         }
 
         // Despawns object

@@ -112,11 +112,11 @@ public class PlayerController : MonoBehaviour
         // Player is dead
         else
         {
-            if (transform.position.y < -1)
-            {
-                Destroy(this.gameObject);
-            }
+            
         }
+
+        // Player fall out of map
+        if (transform.position.y < -1) { Destroy(this.gameObject); }
 
         UpdateAnimator();
 
@@ -131,9 +131,12 @@ public class PlayerController : MonoBehaviour
 
     public void KillPlayer()
     {
-        dead = true;
-        rb.linearVelocity = new Vector3(0, jumpStrength, 0);
-        gameObject.GetComponent<SphereCollider>().enabled = false;
+        if (!dead)
+        {
+            dead = true;
+            rb.linearVelocity = new Vector3(0, jumpStrength, 0);
+            gameObject.GetComponent<SphereCollider>().enabled = false;
+        }
     }
 
 

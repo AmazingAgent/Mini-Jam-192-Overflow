@@ -70,8 +70,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62242a6581b9e3b49b97223b59300b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: 3.5
+  scrollSpeed: 5
   following: 0
+  starterPlatform: 0
   health: 8
 --- !u!54 &6450330669367968046
 Rigidbody:
