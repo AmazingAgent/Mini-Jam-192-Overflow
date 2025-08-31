@@ -14,5 +14,10 @@ public class ObstacleScroll : MonoBehaviour
     void Update()
     {
         rb.linearVelocity = new Vector3(0, 0, -scrollSpeed);
+
+        if (transform.position.z < -12f)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

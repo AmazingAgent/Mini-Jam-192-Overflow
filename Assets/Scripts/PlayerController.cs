@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     private FollowScript followScript;
     public  bool following = false;
 
+    // No control state
+    public bool controllable = false;
+
     // Death state
     public bool dead = false;
 
@@ -33,7 +36,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!dead) {
+        if (!dead && controllable) {
             movingUp = false;
             movingSide = false;
 

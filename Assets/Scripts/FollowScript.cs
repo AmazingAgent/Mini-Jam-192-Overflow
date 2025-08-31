@@ -21,6 +21,7 @@ public class FollowScript : MonoBehaviour
         following = true;
         followObj = obj;
         gameObject.GetComponent<PlayerController>().following = true;
+        gameObject.GetComponent<PlayerController>().controllable = true;
     }
     public void RemoveFollowing()
     {
