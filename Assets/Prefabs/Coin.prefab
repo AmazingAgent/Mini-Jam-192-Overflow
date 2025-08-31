@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 944109271833177110}
   - component: {fileID: 3392952928560449277}
   - component: {fileID: 7098383832867496550}
+  - component: {fileID: 7778901757642683009}
   - component: {fileID: 3169522579073293330}
   m_Layer: 0
   m_Name: Coin
@@ -94,7 +95,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6634590500716354777, guid: 2188523c4b99fe847b3cc2c2a08c49d8, type: 3}
+  - {fileID: 2100000, guid: 10909507c7c98724fbb6b05dd2c92b25, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -133,10 +134,33 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.375
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!136 &7778901757642683009
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478729092740761985}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.375
+  m_Height: 1.25
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &3169522579073293330
 Rigidbody:
   m_ObjectHideFlags: 0
