@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -119,7 +120,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // Player fall out of map
-        if (transform.position.y < -1) { Destroy(this.gameObject); }
+        if (transform.position.y < -1) {
+            SceneManager.LoadScene("IntroScene");
+        }
 
         UpdateAnimator();
 
